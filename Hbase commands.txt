@@ -1,0 +1,99 @@
+>> status
+
+>> status 'simple'
+
+>> status 'detailed'
+
+>> version
+
+# To know how to create a table ?
+>> table_help
+
+# To check the current hbase user
+>> whoami
+
+# Creating table
+>> create 'mytable','colfam'
+
+# To see all the tables we have
+>> list
+
+# To know info about the table
+>> describe 'mytable'
+
+# to drop the table first we need to disable the table
+>> disable 'mytable'
+
+# if you want to make any changes
+>> enable 'mytable'
+
+# to drop the table
+>> drop 'mytable'
+
+======================================================================
+
+### To alter the table (create/drop/rename column, write/change datatype of column)
+
+# create a table first
+>> create 'test_table1','colfam1'
+
+# To change the column name
+>> alter 'test_table1', {NAME => 'colfam2'}
+
+#  To drop columnfam
+>> alter 'test_table1', {NAME => 'colfam2', METHOD => 'delete'}
+
+# To alter the versions of the table
+>> alter 'test_table1', {NAME => 'colfam1', VERSIONS => 2}
+
+# To make the table read-only
+>> alter 'test_table1', READONLY
+
+# Adding new column family and with the version
+# alter 'testtable1', NAME => 'colfam1', VERSIONS => 5
+
+>> alter 'test_table1', MAX_FILESIZE = '13421778'
+
+>> alter_status 'test_table1'
+
+# to create namespace in hbase
+>> create_namespace 'ns2'
+
+# To create a table(rt1) inside namespace(ns2)
+>> create 'ns2:rt1', 'cf1'
+
+# To check whether the table got created or not
+>> list 'ns2:rt1'
+
+# To describe the namespace
+>> describe_namespace 'ns2'
+
+# To describe all the namespaces including default as well
+>> list_namespace
+
+======================================================================
+
+# Creating the new table
+>> create 'f','f1'
+
+# How to insert a data
+>> put 'f',1,'f1:name','siddhu'		(table_name, rowkey, rowname with data)
+
+>> put 'f',1,'f1:city','XYZ'
+>> put 'f',1,'f1:id','10'
+
+# To print the result
+>> scan 'f'
+
+# To read the data from a table corresponding to the rowkey
+>> get 'f','1'
+
+# To read the data from perticular column from the hbase table
+>> get 'f','1' {COLUMN => 'f1:name'}
+
+# To read the data from multiple columns from the hbase table
+>> get 'f','1' {COLUMN => ['f1:name','f1:id']}
+
+
+
+
