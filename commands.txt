@@ -1,0 +1,141 @@
+>> start-all.sh (To start the Hadoop)
+
+>> stop-all.sh (To stop the Hadoop)
+
+>> jps (To check all the Daemons are working or not)
+
+>> mkdir (to create the directory)
+
+>> touchz (to create which type of file or dir)
+
+>> gedit data.txt(can create file in local system)
+
+>> hadoop fs (using one system to another system want backups)
+
+>> hadoop hdfs (working with single computer)
+it has two commands :-
+copyToLocal
+copyFromLocal(-put can also be used)
+
+to find the directory we search
+localhost:9870/
+
+>> hadoop fs -mkdir -p /dept/tech/medical (to create a particular path/dir under one system in nested formula)
+
+>> hadoop fs -mkdir -p hospital
+
+>> hadoop fs -touchz patient.txt
+
+>> hadoop fs -touchz /dept/tech/medical/patient.txt
+
+>> hadoop fs -ls (To show all the folders in the directory)
+
+>> gedit patient1.txt
+
+>> hadoop fs -ls ( the above will not be found)
+	it can be found at the place were hadoop is created in file manager in local machine.
+	so, To take it to the hadoop directory from local below is cmd.
+>> hadoop fs -copyFromLocal patient1.txt /dept/tech/medical/
+
+>> hadoop fs -copyToLocal patient1.txt /desktop/
+
+>> hadoop fs -mv /dept/tech/medical/patient1.txt /section/k20SH/
+
+>> hdfs dfs -cat/data.txt  (To check the data which is inside the file)
+
+>> hadoop fs -du section  (To check the disk usage)
+
+>> hadoop fs -dus section (To check the disk usage)
+
+>> hadoop fs -du /section/data.txt  (which shows the directory & which files are being used)
+
+>> hdfs dfs -mv /user/siddhu/lpu.txt /user
+
+>> hdfs dfs -getmerge -nl /user/abc.txt /user/lpu.txt /Desktop/result.txt
+
+>> hdfs dfs -getmerge -nl /user/abc.txt /user/siddhu/f1.txt /Desktop/result.txt
+
+>> hadoop fs -test -d lpu.txt
+
+>> echo $?
+
+>> hadoop fs -test -e tesla  (-e to check whether the file is existing or not)
+
+>> echo$?
+
+>> hadoop fs -checksum/dept/car.txt  (to check whether the file is modified or any changes)
+
+>> hadoop fsck . /  (health checkup and HEAL status)
+
+>> hadoop fs -ls /dept (tells what types of files are present)
+
+>> hadoop fs -count /dept (tell the count of different types of files)
+
+>> hadoop fs -rm /dept/text/medical/car.txt  (to delete/remove the perticular file from the directory)
+
+>> hadoop fs -chgrp <group_name> /section/k20sh/four.txt (to change the group name)
+
+>> hadoop fs -stat %g /section/k20sh/four.txt (to show whether the group was changed or not)
+
+>> hadoop fs -stat %r /section/k20sh/patient.txt  (show the number of replications)
+
+>> hadoop fs -stst %u /sports (to show the username of hadoop for the perticular folder which was in use)
+
+>> hadoop fs -stst %y /sports (shows date and time in which the file was created)
+
+>> hadoop fs -stst %b /user/abc.txt (shows the size of the file which was created)
+
+>> hadoop fs -usage copyFromLocal (to show the usage)
+
+>> hadoop fs -help put (it will show the syntax of the usage)
+
+>> hadoop fs -head /user/abc.txt  (to show the data in which when was saved)
+
+--------------------------------------------------------------
+>> shared commands
+
+1.hdfs dfs -ls
+2.hdfs dfs -mkdir
+3.hdfs dfs -touchz
+4.hdfs dfs -copyFromLocal <local file path> <dest(present on hdfs)> (put)
+5.hdfs dfs -cat <path>
+6.hdfs dfs -copyToLocal <<srcfile(on hdfs)> <local file dest> (get)
+7.hdfs dfs -moveFromLocal <local src> <dest(on hdfs)>
+8.hdfs dfs -cp <src(on hdfs)> <dest(on hdfs)>
+9.hdfs dfs -mv <src(on hdfs)> <src(on hdfs)>
+10.hdfs dfs -rmr <filename/directoryName>
+11.hdfs dfs -du <dirName> - It will give the size of each file in directory
+12.hdfs dfs -dus <dirName> - This command will give the total size of directory/file
+13.hdfs dfs -stat <hdfs file> - It will give the last modified time of directory or path. In short it will give stats of the directory or file.
+14.This command is used to change the replication factor of a file/directory in HDFS. By default it is 3 for anything which is stored in HDFS (as set in hdfs core-site.xml)
+/hdfs dfs -setrep -R 4 /file name
+15.gedit filename - creating file on lfs
+16.Test : to check conditional checking
+hadoop fs -test -d white - directory or not
+echo $?
+hadoop fs -test -e white : to check if the path is existing in my system
+echo $?
+hadoop fs -test -f white : file or not
+echo $?
+hadoop fs -test -f q2255/m1.txt
+echo $?
+hadoop fs -test -z white/c1.txt - to check file is empty
+17.hadoop fs -getmerge -nl d1/t1.txt d1/t2.txt ~/Desktop/rsult.txt
+18.hadoop fs -checksum filename.txt
+19.hadoop fsck / - : health check
+20.hadoop fs -count dirname
+21.hadoop fs -stat %u filename : username
+%g : groupname
+%r :replication factor count
+%y : file created
+%b : size
+
+22.hadoop fs -tail filename
+23.hadoop fs -head filename
+24.hadoop fs -rm filename
+25.hadoop fs -appendToFile file1.txt file2.txt file3.txt
+
+
+--------------------------------------------------------------
+
+>> hadoop fs -usage expunge  (to check the usage of expunge)
