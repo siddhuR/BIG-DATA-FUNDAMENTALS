@@ -1,0 +1,138 @@
+pig scripts 
+pig -x local 
+
+*******************load and store **********************
+
+base file - nums.txt
+first put the file in hdfs directory
+syntax to LOAD:
+LOAD 'info' [USING FUNCTION] [AS SCHEMA]
+where LOAD - is a relational operator 
+'info' is a file to load -having any data type
+USING is a keyword
+AS keyword
+SCHEMA is a schema of passing file , enclosed in parenthesis
+
+#load cammand
+Q= LOAD '/pigfiles/nums.txt' USING PigStorage(',') AS (n1:int,n2:int,n3:int,n4:int);
+TO CHECK SCHEMA - DESCRIBE Q;
+to see data - DUMP Q;
+
+#to store a relation
+STORE Relation_name INTO 'required_directory_path ' [USING function];
+command :
+STORE Q INTO '/pigfiles/outputfile/' USING PigStorage('|');
+to check output on hadoop :
+hadoop fs -ls /pigfiles/outputfile/
+hadoop fs -cat /pigfiles/outputfile/part-m-00000
+
+#diagnostic ops
+take file on hdfs 
+student = LOAD '/home/shivani/student_data.txt' USING PigStorage(',') AS ( id:int, firstname:chararray, lastname:chararray, phone:chararray, city:chararray );
+Dump student;
+describe student;
+The explain operator is used to display the logical, physical, and MapReduce execution plans of a relation.
+explain student;
+The illustrate operator gives you the step-by-step execution of a sequence of statements.
+illustrate student;
+
+
+*******Apache Pig - joins Operator**********
+take customer and order files 
+customers = LOAD '/pigfiles/customers.txt' USING PigStorage(',') as (id:int, name:chararray, age:int, address:chararray, salary:int);
+
+orders = LOAD '/pigfiles/orders.txt' USING PigStorage(',') as (oid:int, date:chararray, customer_id:int, amount:int);
+
+*******group*******
+student_details = LOAD '/home/shivani/student_data.txt' USING PigStorage(',') AS (id : int,firstname : chararray,lastname : chararray,age : int , phone :chararray ,city : chararray); 
+
+grp_data = GROUP student_details by age;
+grp = GROUP student_details by(age,city);
+
+#self join
+customers1 = LOAD '/pigfiles/customers.txt' USING PigStorage(',') as (id:int, name:chararray, age:int, address:chararray, salary:int);
+customers2 = LOAD '/pigfiles/customers.txt' USING PigStorage(',') as (id:int, name:chararray, age:int, address:chararray, salary:int);
+customers3 = JOIN customers1 BY id, customers2 BY id;
+
+#inner join
+customers = LOAD '/home/shivani/customers.txt' USING PigStorage(',')
+customer_orders = JOIN customers BY id, orders BY customer_id;
+
+#outer join
+left outer 
+outer_left = JOIN customers BY id LEFT OUTER, orders BY customer_id;
+
+right outer
+outer_right = JOIN customers BY id RIGHT, orders BY customer_id;
+
+full outer
+outer_full = JOIN customer BY id FULL OUTER, orders BY customer_id;
+
+******union operator *****
+student1 = LOAD '/home/shivani/Student_data1.txt' USING PigStorage(',') as (id:int, firstname:chararray, lastname:chararray, phone:chararray, city:chararray); 
+ 
+student2 = LOAD '/home/shivani/Student_data2.txt' USING PigStorage(',') as (id:int, firstname:chararray, lastname:chararray, phone:chararray, city:chararray);
+
+student = UNION student1, student2;
+
+*****split operator *******
+student_details = LOAD '/home/shivani/student_data.txt' USING PigStorage(',') as (id:int, firstname:chararray, lastname:chararray, age:int, phone:chararray, city:chararray); 
+
+SPLIT student_details into student_details1 if age<23, student_details2 if (22<age and age>25);
+Dump student_details1;
+Dump student_details2;
+
+*******filter *****
+filter_data = FILTER student_details BY city == 'Chennai';
+dump filter_data;
+
+******distinct*****
+distinct_data = DISTINCT student_details;
+dump distinct_data;
+
+******foreach****
+foreach_data = FOREACH student_details GENERATE id,age,city;
+dump foreach_data;
+
+*****sorting****
+order_by_data = ORDER student_details BY age DESC;
+limit_data = LIMIT student_details 4;
+
+
+*******EVAL FUNCTIONS*******
+# avg()
+A = LOAD '/home/shivani/avg.txt' USING PigStorage(',') AS (a1:chararray,a2:chararray,a3:float);
+B = GROUP A BY a1;
+grunt> C = FOREACH B GENERATE A.a1,AVG(A.a3);
+grunt> DUMP C;
+
+#concatenation
+X = LOAD '/home/shivani/avg.txt' USING PigStorage(',') AS (a1:chararray,a2:chararray,a3:float);
+E = FOREACH X GENERATE CONCAT(a1,'-',a2);
+dump E;
+
+#count
+y = LOAD '/home/shivani/count.txt' USING PigStorage(',') AS (a1:int,a2:int,a3:int);
+grunt> z = group y by a1;
+dump z;
+grunt> w = FOREACH z GENERATE COUNT(y);
+dump w;
+
+#in
+in_data = LOAD '/home/shivani/in.txt' USING PigStorage(',') AS (a1:int,a2:chararray,a3:chararray);
+in_apply = FILTER in_data BY a1 IN(2,4);
+dump in_apply;
+
+#max min 
+K=load avg data 
+L=Group K by a1;
+M=FOREACH L GENERATE K.a1,MAX(K.a3);
+dump M;
+
+M=FOREACH L GENERATE K.a1,MIN(K.a3);
+
+
+
+
+
+
