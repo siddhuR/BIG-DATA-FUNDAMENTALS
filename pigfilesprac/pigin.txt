@@ -1,0 +1,6 @@
+Amy,yahoo.com,2343
+Fred,harved.edu,39845
+Amy,cnn.com,49058
+Frank,nba.com,23094
+Fred,berkeley,209358
+Fred,standford.rdu,04985

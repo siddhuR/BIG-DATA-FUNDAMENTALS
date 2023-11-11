@@ -1,0 +1,6 @@
+Smith,s,2.4F
+Root,g,6.8F
+Root,j,3.6F
+Clarke,m,2.2F
+Smith,d,2.9F
+Clarke,s,5.2F
