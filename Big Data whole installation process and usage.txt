@@ -371,6 +371,9 @@ System.out.println("Done");
 
 =================================================
 ------------------PIG INSTALATION------
+
+https://dlcdn.apache.org/pig/pig-0.17.0/
+
 1. Ext. Home
 2. Bashrc >> last line>>
 	export PIG_HOME=/home/siddhu/pig-0.17.0
