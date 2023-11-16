@@ -32,7 +32,7 @@ public class createTable{
 
 
 
-		HTableDescriptor tableName= new HTableDescriptor(TableName.valueOf("mytable"));
+		HTableDescriptor tableName= new HTableDescriptor(TableName.valueOf("suhaas"));
 
 		
 
